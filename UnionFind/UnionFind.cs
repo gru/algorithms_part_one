@@ -11,6 +11,9 @@ namespace UnionFind
 
 		public UF (int n) {
 			items = new int[n];
+			for (int i = 0; i < items.Length; i++) {
+				items[i] = i;
+			}
 		}
 
 		public void union(int p1, int p2) {
@@ -22,8 +25,8 @@ namespace UnionFind
 			}
 		}
 
-		public bool connected(int p, int q){
-			return items [p] == items [q];
+		public bool connected(int p1, int p2){
+			return items [p1] == items [p2];
 		}
 	}
 
@@ -39,31 +42,19 @@ namespace UnionFind
 				{ 6, 5 },
 				{ 9, 4 },
 				{ 2, 1 },
-				{ 8, 9 },
-				{ 5, 0 },
-				{ 7, 2 },
-				{ 6, 1 },
-				{ 1, 0 },
-				{ 6, 7 },
 			};
 
-			uf = new UF (connections.Count);
+			uf = new UF (10);
 			foreach (var e in connections) {
 				uf.union((int) e.P1,(int) e.P2);
 			}
 
-			for (int i = 0; i < connections.Count; i++) {
-				for (int j = i; j < connections.Count; j++) {
-					if (uf.connected(i, j))
-						Console.WriteLine ("{0} {1}", i, j);
-				}
-			}
 		}
 
 		[Test]
 		public void Find_test() {
-			Assert.IsFalse (uf.connected (1, 6));
-			Assert.IsTrue (uf.connected (8, 3));
+			Assert.IsFalse (uf.connected (1, 3));
+			Assert.IsTrue (uf.connected (8, 4));
 		}
 
 		[Test]
@@ -74,7 +65,7 @@ namespace UnionFind
 		}
 	}
 
-	class ConnectionCollection : IEnumerable<ConnectionCollection>
+	public class ConnectionCollection : IEnumerable<ConnectionCollection>
 	{
 		private List<ConnectionCollection> values = 
 			new List<ConnectionCollection>();
