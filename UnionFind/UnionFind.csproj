@@ -38,6 +38,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="UnionFind.cs" />
     <Compile Include="QuickFind.cs" />
+    <Compile Include="WeightedQuickUnion.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
