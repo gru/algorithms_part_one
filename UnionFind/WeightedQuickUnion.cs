@@ -19,7 +19,7 @@ namespace UnionFind
 
 		private int root(int i) {
 			while (i != items[i]) {
-				items [i] = items [items [i]];ß
+				items [i] = items [items [i]];
 				i = items [i];
 			}
 			return i;
