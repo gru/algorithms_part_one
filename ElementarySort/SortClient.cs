@@ -3,9 +3,9 @@ using NUnit.Framework;
 
 namespace ElementarySort
 {
-	public class SortClient
+	public static class SortClient
 	{
-		public IComparable[] SelectionSort(IComparable[] data) {
+		public static IComparable[] SelectionSort(IComparable[] data) {
 			var n = data.Length;
 			for (int i = 0; i < n; i++) {
 				int min = i;
@@ -19,7 +19,7 @@ namespace ElementarySort
 			return data;
 		}
 
-		public IComparable[] InsertionSort(IComparable[] data) {
+		public static IComparable[] InsertionSort(IComparable[] data) {
 			var n = data.Length;
 			for (int i = 0; i < n; i++) {
 				for (int j = i; j > 0; j--) {
@@ -31,7 +31,7 @@ namespace ElementarySort
 			return data;
 		}
 
-		public IComparable[] ShellSort(IComparable[] data) {
+		public static IComparable[] ShellSort(IComparable[] data) {
 			var n = data.Length;
 
 			var h = 1;
@@ -54,7 +54,7 @@ namespace ElementarySort
 			return data;
 		}
 
-		public IComparable[] Shuffle(IComparable[] data, int seed) {
+		public static IComparable[] Shuffle(IComparable[] data, int seed) {
 			var n = data.Length;
 			var random = new Random (seed);
 			for (int i = 0; i < n; i++) {
@@ -64,7 +64,7 @@ namespace ElementarySort
 			return data;
 		}
 
-		public bool IsSorted(IComparable[] data) {
+		public static bool IsSorted(IComparable[] data) {
 			for (int i = 1; i < data.Length; i++) {
 				if (Less (data [i], data [i - 1])) {
 					return false;
@@ -73,11 +73,11 @@ namespace ElementarySort
 			return true;
 		}
 
-		private bool Less(IComparable a, IComparable b){
+		private static bool Less(IComparable a, IComparable b){
 			return a.CompareTo (b) < 0;
 		}
 
-		private void Exchange(IComparable[] data, int i, int j){
+		private static void Exchange(IComparable[] data, int i, int j){
 			var a = data [i];
 			data [i] = data [j];
 			data [j] = a;
@@ -89,40 +89,35 @@ namespace ElementarySort
 	{
 		[Test]
 		public void Is_sorted_test(){
-			var client = new SortClient ();
 			var sortedData = new[] { "a", "b", "c", "d" };
-			Assert.IsTrue (client.IsSorted (sortedData));
+			Assert.IsTrue (SortClient.IsSorted (sortedData));
 
 			var data = new[] { "b", "c", "d", "a" };
-			Assert.IsFalse (client.IsSorted (data));
+			Assert.IsFalse (SortClient.IsSorted (data));
 		}
 
 		[Test]
 		public void Selection_sort_test(){
 			var data = new [] { "1", "2", "3", "0" };
-			var client = new SortClient ();
-			Assert.AreEqual (new [] { "0", "1", "2", "3" }, client.SelectionSort (data));
+			Assert.AreEqual (new [] { "0", "1", "2", "3" }, SortClient.SelectionSort (data));
 		}
 
 		[Test]
 		public void Insertion_sort_test(){
 			var data = new [] { "1", "2", "3", "0" };
-			var client = new SortClient ();
-			Assert.AreEqual (new [] { "0", "1", "2", "3" }, client.InsertionSort (data));
+			Assert.AreEqual (new [] { "0", "1", "2", "3" }, SortClient.InsertionSort (data));
 		}
 		
 		[Test]
 		public void Shell_sort_test(){
 			var data = new [] { "1", "2", "3", "0" };
-			var client = new SortClient ();
-			Assert.AreEqual (new [] { "0", "1", "2", "3" }, client.ShellSort (data));
+			Assert.AreEqual (new [] { "0", "1", "2", "3" }, SortClient.ShellSort (data));
 		}
 
 		[Test]
 		public void Shuffle_test(){
 			var data = new [] { "1", "2", "3", "0" };
-			var client = new SortClient ();
-			Assert.AreNotEqual (data.Clone(), client.Shuffle (data, 3));
+			Assert.AreNotEqual (data.Clone(), SortClient.Shuffle (data, 3));
 		}
 	}
 }
