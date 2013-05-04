@@ -10,10 +10,23 @@ namespace ElementarySort
 			for (int i = 0; i < n; i++) {
 				int min = i;
 				for (int j = i + 1; j < n; j++) {
-					if (Less (data[j], data[min]))
-					    min = j;
+					if (Less (data [j], data [min])) {
+						min = j;
+					}
 				}
 				Exchange (data, min, i);
+			}
+			return data;
+		}
+
+		public IComparable[] InsertionSort(IComparable[] data) {
+			var n = data.Length;
+			for (int i = 0; i < n; i++) {
+				for (int j = i; j > 0; j--) {
+					if (Less (data[j], data[j - 1])) {
+					    Exchange(data, j, j - 1);
+					}
+				}
 			}
 			return data;
 		}
@@ -52,10 +65,17 @@ namespace ElementarySort
 		}
 
 		[Test]
-		public void Sort_test(){
+		public void Selection_sort_test(){
 			var data = new [] { "1", "2", "3", "0" };
 			var client = new SortClient ();
 			Assert.AreEqual (new [] { "0", "1", "2", "3" }, client.SelectionSort (data));
+		}
+
+		[Test]
+		public void Insertion_sort_test(){
+			var data = new [] { "1", "2", "3", "0" };
+			var client = new SortClient ();
+			Assert.AreEqual (new [] { "0", "1", "2", "3" }, client.InsertionSort (data));
 		}
 	}
 }
