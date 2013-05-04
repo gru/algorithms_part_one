@@ -54,6 +54,16 @@ namespace ElementarySort
 			return data;
 		}
 
+		public IComparable[] Shuffle(IComparable[] data, int seed) {
+			var n = data.Length;
+			var random = new Random (seed);
+			for (int i = 0; i < n; i++) {
+				var r = random.Next (0, i + 1);
+				Exchange (data, i, r);
+			}
+			return data;
+		}
+
 		public bool IsSorted(IComparable[] data) {
 			for (int i = 1; i < data.Length; i++) {
 				if (Less (data [i], data [i - 1])) {
@@ -100,13 +110,19 @@ namespace ElementarySort
 			var client = new SortClient ();
 			Assert.AreEqual (new [] { "0", "1", "2", "3" }, client.InsertionSort (data));
 		}
-
 		
 		[Test]
 		public void Shell_sort_test(){
 			var data = new [] { "1", "2", "3", "0" };
 			var client = new SortClient ();
 			Assert.AreEqual (new [] { "0", "1", "2", "3" }, client.ShellSort (data));
+		}
+
+		[Test]
+		public void Shuffle_test(){
+			var data = new [] { "1", "2", "3", "0" };
+			var client = new SortClient ();
+			Assert.AreNotEqual (data.Clone(), client.Shuffle (data, 3));
 		}
 	}
 }
