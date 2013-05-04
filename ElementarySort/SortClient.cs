@@ -31,6 +31,29 @@ namespace ElementarySort
 			return data;
 		}
 
+		public IComparable[] ShellSort(IComparable[] data) {
+			var n = data.Length;
+
+			var h = 1;
+			while (h < n / 3) {
+				h = 3 * h + 1;
+			}
+
+			while(h >= 1) {
+				for (int i = h; i < n; i++) {
+					for (int j = i; j >= h; j -= h) {
+						if (Less(data[j], data[j - h])) {
+							Exchange (data, j, j - h);
+						}
+					}
+				}
+
+				h = h / 3;
+			}
+
+			return data;
+		}
+
 		public bool IsSorted(IComparable[] data) {
 			for (int i = 1; i < data.Length; i++) {
 				if (Less (data [i], data [i - 1])) {
@@ -76,6 +99,14 @@ namespace ElementarySort
 			var data = new [] { "1", "2", "3", "0" };
 			var client = new SortClient ();
 			Assert.AreEqual (new [] { "0", "1", "2", "3" }, client.InsertionSort (data));
+		}
+
+		
+		[Test]
+		public void Shell_sort_test(){
+			var data = new [] { "1", "2", "3", "0" };
+			var client = new SortClient ();
+			Assert.AreEqual (new [] { "0", "1", "2", "3" }, client.ShellSort (data));
 		}
 	}
 }
