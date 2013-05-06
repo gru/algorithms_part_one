@@ -53,14 +53,26 @@ namespace QuickSort
 			return data;
 		}
 
-		private bool Less(IComparable a, IComparable b){
+		private bool Less(IComparable a, IComparable b) {
 			return a.CompareTo (b) < 0;
 		}
 
-		private void Exchange(IComparable[] data, int i, int j){
+		private void Exchange(IComparable[] data, int i, int j) {
 			var a = data [i];
 			data [i] = data [j];
 			data [j] = a;
+		}
+
+		public IComparable[] InsertionSort(IComparable[] data, int lo, int hi) {
+			var n = data.Length;
+			for (int i = lo; i < hi; i++) {
+				for (int j = i; j > 0; j--) {
+					if (Less (data[j], data[j - 1])) {
+						Exchange(data, j, j - 1);
+					}
+				}
+			}
+			return data;
 		}
 	}
 
@@ -69,10 +81,9 @@ namespace QuickSort
 	{
 		[Test]
 		public void Quick_sort_tests() {
-			var data = new [] { "a", "b", "c", "d", "a", "x", "c", "x" };
+			var data = new [] { "a", "b", "c", "d", "a", "x", "c", "x", "9", "8", "1" };
 			var client = new QuickSortClient ();
-			Assert.AreEqual (new [] { "a", "a", "b", "c", "c", "d", "x", "x" }, client.Sort (data));
+			Assert.AreEqual (new [] { "1", "8", "9", "a", "a", "b", "c", "c", "d", "x", "x" }, client.Sort (data));
 		}
 	}
 }
-
