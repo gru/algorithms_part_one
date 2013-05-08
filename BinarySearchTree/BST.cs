@@ -33,6 +33,12 @@ namespace BinarySearchTree
 			return default(TValue);
 		}
 
+		public IEnumerable<TKey> GetKeys(TKey lo, TKey hi)
+		{
+			// TODO: implement
+			yield break;
+		}
+
 		public void Delete(TKey key)
 		{
 			root = Delete (root, key);
@@ -75,6 +81,16 @@ namespace BinarySearchTree
 		public int Count()
 		{
 			return Count (root);	
+		}
+
+		// 11 - 1
+		public int Count(TKey lo, TKey hi)
+		{
+			if (Contains (hi)) {
+				return Rank (hi) - Rank (lo) + 1;
+			} else {
+				return Rank (hi) - Rank (lo);
+			}
 		}
 
 		public int Rank(TKey key) 
@@ -421,6 +437,19 @@ namespace BinarySearchTree
 			Assert.IsTrue (tree.Contains (1));
 			tree.Delete (1);
 			Assert.IsFalse (tree.Contains (1));
+		}
+
+		[Test]
+		public void Count_keys_test() 
+		{
+			var tree = new BST<int, int> {
+				{ 1, 100 },
+				{ 2, 200 },
+				{ 3, 0 },
+				{ 5, -10 },
+				{ 4, 100 }
+			};
+			Assert.AreEqual(2, tree.Count(1, 2));
 		}
 	}
 }
